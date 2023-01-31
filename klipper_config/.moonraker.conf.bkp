@@ -1,7 +1,6 @@
 [server]
 host = 0.0.0.0
 port = 7125
-enable_debug_logging = False
 klippy_uds_address = /tmp/klippy_uds
 
 [authorization]
@@ -11,6 +10,7 @@ trusted_clients =
 	169.254.0.0/16
 	172.16.0.0/12
 	192.168.0.0/16
+	100.0.0.0/8
 	FE80::/10
 	::1/128
 cors_domains = 
@@ -22,11 +22,19 @@ cors_domains =
 	http://app.fluidd.xyz
 
 [database]
-database_path = /home/teammykung/.moonraker_database
+
+[timelapse]
+enabled = True
+autorender = True
+constant_rate_factor = 23
+output_framerate = 30
+output_path = /home/teammykung/Timelapses/
+frame_path = /tmp/timelapse/
+time_format_code = %Y%m%d_%H%M
+snapshoturl = http://192.168.3.21/webcam/?action=snapshot
+pixelformat = yuv420p
 
 [file_manager]
-config_path = /home/teammykung/klipper_config
-log_path = /home/teammykung/klipper_logs
 
 [octoprint_compat]
 
@@ -41,4 +49,10 @@ type = web
 channel = stable
 repo = mainsail-crew/mainsail
 path = ~/mainsail
+
+[update_manager timelapse]
+type = git_repo
+primary_branch = main
+path = ~/moonraker-timelapse
+origin = https://github.com/mainsail-crew/moonraker-timelapse.git
 
